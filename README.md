@@ -33,7 +33,7 @@ env.roledefs = {
 ## Run Specific Tasks From The Fab File
 
 ```sh
-	fab -f ./deploy TASK_NAME
+	fab -f ./deploy.py TASK_NAME
 ```
 
 Here **-f** flag is used to specify the fabric file.
