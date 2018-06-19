@@ -86,21 +86,21 @@ def install_requisites():
 @parallel
 def clone_harmonic_repo():
     print("----- Setup Files Required for HarmonicIO ----- \n \n")
-    run('mkdir ~/Workdir')
-    run('git clone https://github.com/HASTE-project/HarmonicIO.git ~/Workdir')
+    run('mkdir ~/HarmonicIO')
+    run('git clone https://github.com/HASTE-project/HarmonicIO.git ~/HarmonicIO')
 
 @task
 @parallel
 def setup_harmonic():
     print("----- Setup Haronic IO ----- \n \n")
-    sudo('pip3 install -e ~/Workdir/.')
+    sudo('pip3 install -e ~/HarmonicIO/.')
 
 @task
 @roles('master')
 def setup_harmonic_master():
     print("----- Setting Up Harmonic Master Configuration ----- \n \n")
     masterIPv4 = run('ifconfig | grep inet\ addr | awk \'{print $2}\' | cut -d \':\' -f 2')
-    run('sed -i \'s/"master_addr".*$/"master_addr": "%s",/\' ~/Workdir/harmonicIO/master/configuration.json' % masterIPv4)
+    run('sed -i \'s/"master_addr".*$/"master_addr": "%s",/\' ~/HarmonicIO/harmonicIO/master/configuration.json' % masterIPv4)
 
 @task
 @roles('master')
@@ -128,8 +128,8 @@ def deploy_harmonic_master():
 def setup_harmonic_worker():
     print("----- Setting Up Harmonic Worker Configuration ----- \n \n")
     workerIPv4 = run('ifconfig | grep inet\ addr | awk \'{print $2}\' | cut -d \':\' -f 2')
-    run('sed -i \'s/"node_internal_addr".*$/"node_internal_addr": "%s",/\' ~/Workdir/harmonicIO/worker/configuration.json' % workerIPv4)
-    run('sed -i \'s/"master_addr".*$/"master_addr": "%s",/\' ~/Workdir/harmonicIO/worker/configuration.json' % masterIPv4)
+    run('sed -i \'s/"node_internal_addr".*$/"node_internal_addr": "%s",/\' ~/HarmonicIO/harmonicIO/worker/configuration.json' % workerIPv4)
+    run('sed -i \'s/"master_addr".*$/"master_addr": "%s",/\' ~/HarmonicIO/harmonicIO/worker/configuration.json' % masterIPv4)
 
 @task
 @roles('workers')
