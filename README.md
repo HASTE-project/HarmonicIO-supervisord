@@ -1,3 +1,6 @@
+This repo is deprecated, please use the Ansible scripts instead.
+
+
 # Python Fabric Script For Deploying HarmonicIO Master & Worker Nodes Along With Supervisord Services
 ---
 
